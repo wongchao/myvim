@@ -2,7 +2,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Valloric/YouCompleteMe'
 Plugin 'L9'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
@@ -14,20 +13,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
-Plugin 'bling/vim-airline-themes'
 Plugin 'ervandew/supertab'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'elzr/vim-json'
 Plugin 'Valloric/YouCompleteMe'
+
 call vundle#end()
-
-
-
 call pathogen#infect()
 nmap <F4> :TagbarToggle<CR>
-let g:tagbar_width = 40       "设置宽度，默认为40                                                                                                              |~                                       
-autocmd VimEnter * nested :call tagbar#autoopen(1)    "打开vim时自动打开                                                                                       |~                                       
-"let g:tagbar_left = 1         "在左侧                                                                                                                         |~                                       
+let g:tagbar_width = 40       "设置宽度，默认为40   
 let g:tagbar_right = 1        "在右侧
 
 :map <F1> :set mouse=a<CR>
@@ -47,6 +42,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
 
 
 
@@ -66,7 +65,7 @@ set guioptions-=r
 set guioptions-=L
 set guioptions-=b
 "隐藏顶部标签栏"
-set showtabline=0
+set showtabline=1
 "设置字体"
 set guifont=Monaco:h13         
 syntax on    "开启语法高亮
@@ -128,9 +127,11 @@ set expandtab
 set autoindent " same level indent
 set smartindent " next level indent
 set wrap "自动换行
+set backspace=2
 
 
 
+let g:syntastic_python_checkers = ['pylint']
 let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'], ['Darkblue', 'SeaGreen3'], ['darkgray', 'DarkOrchid3'], ['darkgreen', 'firebrick3'],['darkcyan', 'RoyalBlue3'],['darkred', 'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['brown', 'firebrick3'],['gray', 'RoyalBlue3'],['black',       'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['Darkblue',  'firebrick3'],['darkgreen', 'RoyalBlue3'],['darkcyan', 'SeaGreen3'],['darkred', 'DarkOrchid3'],['red', 'firebrick3']]
 let g:rbpt_max = 16
 au VimEnter * RainbowParenthesesToggle
