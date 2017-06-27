@@ -36,6 +36,11 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 "窗口大小"
 let NERDTreeWinSize=25
+let NERDTreeQuitOnOpen=1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+autocmd vimenter * NERDTree
+wincmd w
+autocmd VimEnter * wincmd w
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -128,6 +133,7 @@ set autoindent " same level indent
 set smartindent " next level indent
 set wrap "自动换行
 set backspace=2
+set autochdir
 
 
 
