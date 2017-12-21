@@ -18,6 +18,21 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'elzr/vim-json'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'majutsushi/tagbar'
+Plugin 'minibufexpl.vim'
+Plugin 'winmanager'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'pangloss/vim-javascript' "更好的js语法 锁进支持
+Plugin 'othree/yajs.vim' "更好的js语法高亮
+Plugin 'othree/javascript-libraries-syntax.vim' "js各类框架 库的高亮支持
+Plugin 'maksimr/vim-jsbeautify' "格式化js css等
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'mbriggs/mark.vim' "标记高亮
+Plugin 'gorodinskiy/vim-coloresque' "颜色符号显示对应颜色
+Plugin 'godlygeek/tabular' "快速对齐
+
+
 
 call vundle#end()
 call pathogen#infect()
@@ -27,6 +42,12 @@ let g:tagbar_right = 1        "在右侧
 
 :map <F1> :set mouse=a<CR>
 :map <F2> :set mouse=v<CR>
+:map <c-f> :call JsBeautify()<cr>
+"map  :call JsBeautify()
+"autocmd FileType javascript noremap  :call JsBeautify()
+"autocmd FileType html noremap  :call HtmlBeautify()
+"autocmd FileType css noremap  :call CSSBeautify()
+
 "F2开启和关闭树
 map <F3> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
@@ -36,7 +57,8 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 "窗口大小"
 let NERDTreeWinSize=25
-let NERDTreeQuitOnOpen=1
+"let NERDTreeQuitOnOpen=1
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 autocmd vimenter * NERDTree
 wincmd w
@@ -76,7 +98,8 @@ set guifont=Monaco:h13
 syntax on    "开启语法高亮
 let g:solarized_termcolors=256    "solarized主题设置在终端下的设置
 set background=dark        "设置背景色"
-set nowrap    "设置不折行"
+set wrap    "设置折行"
+"set nowrap    "设置不折行"
 set fileformat=unix    "设置以unix的格式保存文件"
 set cindent        "设置C样式的缩进格式"
 set tabstop=4    "设置table长度"
@@ -87,13 +110,12 @@ set laststatus=2    "命令行为两行"
 set fenc=utf-8      "文件编码"
 "set mouse=a        "启用鼠标"
 set selection=exclusive
-set selectmode=mouse,key
 set matchtime=5
 set ignorecase        "忽略大小写"
 set incsearch
 set hlsearch        "高亮搜索项"
 set noexpandtab        "不允许扩展table"
-set whichwrap+=,h,l
+"set whichwrap+=,h,l
 set autoread
 set cursorline        "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
@@ -106,7 +128,6 @@ let Tlist_Compart_Format = 1
 let Tlist_Exist_OnlyWindow = 1
 let Tlist_File_Fold_Auto_Close = 0
 let Tlist_Enable_Fold_Column = 0
-
 set selection=exclusive
 set selectmode=mouse,key
 set noai nosi
@@ -120,29 +141,25 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 set enc=utf8
 set fencs=utf8,gbk,gb2312,gb18030,cp936
 set ruler
-
-
-"colorscheme solarized
-"colorscheme darkblue
-"let g:airline_theme="molokai" 
-"let g:airline_theme="wombat" 
-colorscheme molokai
+colorscheme solarized "darkblue molokai
 set ts=4
 set expandtab
 set autoindent " same level indent
 set smartindent " next level indent
-set wrap "自动换行
 set backspace=2
 set autochdir
-
-
-
+"let g:airline_theme="molokai" 
+let g:airline_theme="wombat" 
 let g:syntastic_python_checkers = ['pylint']
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope = 0
+let g:pymode_rope_autoimport = 0
 let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'], ['Darkblue', 'SeaGreen3'], ['darkgray', 'DarkOrchid3'], ['darkgreen', 'firebrick3'],['darkcyan', 'RoyalBlue3'],['darkred', 'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['brown', 'firebrick3'],['gray', 'RoyalBlue3'],['black',       'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['Darkblue',  'firebrick3'],['darkgreen', 'RoyalBlue3'],['darkcyan', 'SeaGreen3'],['darkred', 'DarkOrchid3'],['red', 'firebrick3']]
 let g:rbpt_max = 16
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
 "按C关闭nerdtree buffer
 nnoremap c :bp\|bd #<CR>
