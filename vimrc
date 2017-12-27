@@ -9,7 +9,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive' 
+Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
@@ -37,7 +37,7 @@ Plugin 'godlygeek/tabular' "快速对齐
 call vundle#end()
 call pathogen#infect()
 nmap <F4> :TagbarToggle<CR>
-let g:tagbar_width = 40       "设置宽度，默认为40   
+let g:tagbar_width = 40       "设置宽度，默认为40
 let g:tagbar_right = 1        "在右侧
 
 :map <F1> :set mouse=a<CR>
@@ -59,13 +59,12 @@ let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 let NERDTreeWinSize=25
 "let NERDTreeQuitOnOpen=1
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 autocmd vimenter * NERDTree
 wincmd w
 autocmd VimEnter * wincmd w
 
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0 "关闭buffer
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -78,7 +77,7 @@ let g:airline_right_sep = '◀'
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabDefaultCompletionType="context"   
+let g:SuperTabDefaultCompletionType="context"
 nnoremap <C-tab> :bn<CR>
 nnoremap <C-s-tab> :bp<CR>
 
@@ -87,14 +86,14 @@ let g:solarized_termcolors=256
 set nocompatible
 "显示行号"
 set number
-" 隐藏滚动条"    
-set guioptions-=r 
+" 隐藏滚动条"
+set guioptions-=r
 set guioptions-=L
 set guioptions-=b
 "隐藏顶部标签栏"
-set showtabline=1
+set showtabline=0
 "设置字体"
-set guifont=Monaco:h13         
+set guifont=Monaco:h13
 syntax on    "开启语法高亮
 let g:solarized_termcolors=256    "solarized主题设置在终端下的设置
 set background=dark        "设置背景色"
@@ -139,6 +138,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 
 
 set enc=utf8
+let g:ycm_seed_identifiers_with_syntax=1
 set fencs=utf8,gbk,gb2312,gb18030,cp936
 set ruler
 colorscheme solarized "darkblue molokai
@@ -148,8 +148,8 @@ set autoindent " same level indent
 set smartindent " next level indent
 set backspace=2
 set autochdir
-"let g:airline_theme="molokai" 
-let g:airline_theme="wombat" 
+"let g:airline_theme="molokai"
+let g:airline_theme="wombat"
 let g:syntastic_python_checkers = ['pylint']
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope = 0
@@ -163,3 +163,4 @@ au Syntax * RainbowParenthesesLoadBraces
 
 "按C关闭nerdtree buffer
 nnoremap c :bp\|bd #<CR>
+let g:miniBufExplMapWindowNavVim = 1
