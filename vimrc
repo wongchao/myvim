@@ -3,7 +3,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Yggdroot/indentLine'
 Plugin 'jiangmiao/auto-pairs'
@@ -12,7 +11,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
-Plugin 'bling/vim-airline'
+Plugin 'itchyny/lightline.vim'
 Plugin 'ervandew/supertab'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mattn/emmet-vim'
@@ -31,7 +30,11 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'mbriggs/mark.vim' "标记高亮
 Plugin 'gorodinskiy/vim-coloresque' "颜色符号显示对应颜色
 Plugin 'godlygeek/tabular' "快速对齐
-
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'EasyGrep'
+Plugin 'fatih/vim-go'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'scrooloose/syntastic'
 
 
 call vundle#end()
@@ -44,9 +47,11 @@ let g:tagbar_right = 1        "在右侧
 :map <F2> :set mouse=v<CR>
 :map <c-f> :call JsBeautify()<cr>
 "map  :call JsBeautify()
-"autocmd FileType javascript noremap  :call JsBeautify()
-"autocmd FileType html noremap  :call HtmlBeautify()
-"autocmd FileType css noremap  :call CSSBeautify()
+autocmd FileType javascript noremap  :call JsBeautify()
+autocmd FileType html noremap  :call HtmlBeautify()
+autocmd FileType css noremap  :call CSSBeautify()
+autocmd filetype *html* imap <c-_> <c-y>/
+autocmd filetype *html* map <c-_> <c-y>/
 
 "F2开启和关闭树
 map <F3> :NERDTreeToggle<CR>
@@ -58,12 +63,13 @@ let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 "窗口大小"
 let NERDTreeWinSize=25
 "let NERDTreeQuitOnOpen=1
+let g:NERDTreeUpdateOnWrite = 0
 
 autocmd vimenter * NERDTree
 wincmd w
 autocmd VimEnter * wincmd w
 
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0 "关闭buffer
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -148,14 +154,19 @@ set autoindent " same level indent
 set smartindent " next level indent
 set backspace=2
 set autochdir
-"let g:airline_theme="molokai"
-let g:airline_theme="wombat"
+"let g:airline_theme="dark"
+"let g:airline_theme="wombat"
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night_Bright',
+            \ }
 let g:syntastic_python_checkers = ['pylint']
+let g:formatters_python = ['autopep8']
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope = 0
 let g:pymode_rope_autoimport = 0
 let g:rbpt_colorpairs = [ ['brown', 'RoyalBlue3'], ['Darkblue', 'SeaGreen3'], ['darkgray', 'DarkOrchid3'], ['darkgreen', 'firebrick3'],['darkcyan', 'RoyalBlue3'],['darkred', 'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['brown', 'firebrick3'],['gray', 'RoyalBlue3'],['black',       'SeaGreen3'],['darkmagenta', 'DarkOrchid3'],['Darkblue',  'firebrick3'],['darkgreen', 'RoyalBlue3'],['darkcyan', 'SeaGreen3'],['darkred', 'DarkOrchid3'],['red', 'firebrick3']]
 let g:rbpt_max = 16
+let g:EasyGrepFilesToExclude = "*.bak, *~, cscope.*, *.a, *.o, *.pyc, *.bak"
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -164,3 +175,53 @@ au Syntax * RainbowParenthesesLoadBraces
 "按C关闭nerdtree buffer
 nnoremap c :bp\|bd #<CR>
 let g:miniBufExplMapWindowNavVim = 1
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+
+
+
+
+"golang"
+"let g:go_disable_autoinstall = 0
+"let g:go_highlight_functions = 1
+"let g:go_highlight_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_function_calls = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_highlight_generate_tags = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_fmt_command = 'goimports'
+""let g:go_fmt_fail_silently = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_list_type = "quickfix"
+"let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_deadline = '5s'
+"autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+"let g:rehash256 = 1
+"let g:molokai_original = 1
+"colorscheme molokai
+"autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+"autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+"autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+"autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+let g:go_def_mode = 'godef'
+let g:go_decls_includes = 'func,type'
+"autocmd FileType go nmap <Leader>i <Plug>(go-info)
+let g:go_auto_type_info = 1
+"set updatetime=100
+let g:go_auto_sameids = 1
+let g:go_fmt_command = "goimports"
+set autowrite
+
+let javascript_enable_domhtmlcss = 1
+" temporary fix
+" https://github.com/vim/vim/issues/3117
+if has('python3')
+  silent! python3 1
+  endif
